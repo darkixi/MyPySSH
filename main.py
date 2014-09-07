@@ -12,6 +12,12 @@ def GetConnectionInfo(inputcsv, userinputcommand):
             print "Connecting to %s" %  (row['ip'])
             remote_conn_pre = paramiko.SSHClient()
             remote_conn_pre.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            
+            if row['jumpbox'] == '':
+                pass
+            else:
+                JumpBoxConnect(row['jumpbox'])
+                
             try:
                 remote_conn_pre.connect(row['ip'], username=row['username'], password=row['password'])
                 paramiko.ssh_exception.AuthenticationException
@@ -52,6 +58,14 @@ def GetConnectionInfo(inputcsv, userinputcommand):
                     inputtime = TimeStamp()
                     command = command.strip()
                     writer.writerow([row['ip']] + [command] + [commandresult] + [inputtime])
+                    
+def JumpBoxConnect(jumpboxip):
+    username = raw_input('Username: >> ')
+    password = raw_input('Password: >> ')
+    try:
+        remote_conn.send("ssh %s@%s" % (username, jumpboxip) + '\n')
+        remote_conn.send(password + '\n')
+        time.sleep(1)
 
 def TimeStamp(epoch=None):
     if epoch == None:

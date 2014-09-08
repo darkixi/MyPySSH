@@ -66,6 +66,8 @@ def JumpBoxConnect(jumpboxip):
         remote_conn.send("ssh %s@%s" % (username, jumpboxip) + '\n')
         remote_conn.send(password + '\n')
         time.sleep(1)
+    except:
+        sys.exit("Connection Failed")
 
 def TimeStamp(epoch=None):
     if epoch == None:
@@ -82,7 +84,9 @@ def CheckFiles(check_file):
             writer = csv.writer(headers)
             writer.writerow(['ip', 'command', 'commandresult', 'timestamp'])
 
+if __name__ == __main__:
+    CheckFiles('ConnectionInfo_Output.csv')
+    CheckFiles('ErrorLog.csv')
+    GetConnectionInfo(raw_input("Enter Input File: "), raw_input("Enter commands: "))
 
-CheckFiles('ConnectionInfo_Output.csv')
-CheckFiles('ErrorLog.csv')
-GetConnectionInfo(raw_input("Enter Input File: "), raw_input("Enter commands: "))
+

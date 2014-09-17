@@ -2,7 +2,7 @@ import paramiko
 import time
 import csv
 import os
-
+import sys
 
 def GetConnectionInfo(inputcsv, userinputcommand):
     with open(inputcsv, 'rb') as f:

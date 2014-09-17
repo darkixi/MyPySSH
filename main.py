@@ -61,11 +61,14 @@ def GetConnectionInfo(inputcsv, userinputcommand):
                     
 def JumpBoxConnect(jumpboxip):
     username = raw_input('Username: >> ')
-    password = raw_input('Password: >> ')
+    jumpboxuser = ("ssh %s@%s" % (username, jumpboxip))
+    jumpboxpassword = raw_input('Password: >> ')
     try:
-        remote_conn.send("ssh %s@%s" % (username, jumpboxip) + '\n')
-        remote_conn.send(password + '\n')
+        remote_conn_pre.connect(jumpboxip, username=jumpboxuser, password=jumpboxpassword)
+        #remote_conn.send("ssh %s@%s" % (username, jumpboxip) + '\n')
+        #remote_conn.send(password + '\n')
         time.sleep(1)
+        print "JumpBox Connecting"
     except:
         sys.exit("Connection Failed")
 

@@ -84,7 +84,7 @@ def CheckFiles(check_file):
             writer = csv.writer(headers)
             writer.writerow(['ip', 'command', 'commandresult', 'timestamp'])
 
-if __name__ == __main__:
+if __name__ == "__main__":
     CheckFiles('ConnectionInfo_Output.csv')
     CheckFiles('ErrorLog.csv')
     GetConnectionInfo(raw_input("Enter Input File: "), raw_input("Enter commands: "))
